@@ -11,27 +11,37 @@
     body {
         margin: 0px;
         padding: 0px;
-      background-color: #ff99aa;
+        background-color: #f6c0c9;
     }
 
     .todo-item {
-        border: 1px dashed black;
-        margin: 10px;
-        padding: 10px;
-        border-radius: 5px;
+        border: 1px solid black;
+        margin: 20px;
+        padding: 20px;
+        border-radius: 15px;
+        background-color: #ffffff;
+        cursor: pointer;
+    }
+
+    .todo-item:hover {
+       background-color: #ffffff;
+        cursor: pointer;
+        box-shadow: 3px 5px 5px grey;
     }
 
     .new-todo-container {
-       position: fixed;
-         bottom: 0;
-         left: 0;
-         right: 0;
-         background-color: 	#ff6680;
-         padding: 10px 40px;
-
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: #ff6680;
+        padding: 10px 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
 
-    .to-do-container{
+    .to-do-container {
         height: 200px;
         overflow-y: scroll;
 
@@ -39,8 +49,8 @@
 
     .heading {
         text-align: center;
-        margin:0px;
-        color: rgb(0, 0, 0);
+        margin: 0px;
+        color: #950d24;
     }
 
     .add-todo-button {
@@ -63,11 +73,10 @@
     .new-todo-container input:focus {
         outline: none;
     }
-
 </style>
 
 <body>
-    <h1 class="heading">ToDO App</h1>
+    <h1 class="heading">ToDo App</h1>
 
     <div class="todo-container" id="todo-container"></div>
 
@@ -98,7 +107,7 @@
             }
 
         }
-            loadToDoItems();
+        loadToDoItems();
 
 
         function addTodoItem() {
