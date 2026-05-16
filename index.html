@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+</head>
+
+<style>
+    body {
+        margin: 0px;
+        padding: 0px;
+      background-color: #ff99aa;
+    }
+
+    .todo-item {
+        border: 1px dashed black;
+        margin: 10px;
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+    .new-todo-container {
+       position: fixed;
+         bottom: 0;
+         left: 0;
+         right: 0;
+         background-color: 	#ff6680;
+         padding: 10px 40px;
+
+    }
+
+    .to-do-container{
+        height: 200px;
+        overflow-y: scroll;
+
+    }
+
+    .heading {
+        text-align: center;
+        margin:0px;
+        color: rgb(0, 0, 0);
+    }
+
+    .add-todo-button {
+        background-color: #ab0e28;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        cursor: pointer;
+        border-radius: 25px;
+    }
+
+    .new-todo-container input {
+        width: 70%;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+    }
+
+    .new-todo-container input:focus {
+        outline: none;
+    }
+
+</style>
+
+<body>
+    <h1 class="heading">ToDO App</h1>
+
+    <div class="todo-container" id="todo-container"></div>
+
+    <div class="new-todo-container">
+        <input type="text" id="new-todo-input" placeholder="Enter a new todo...">
+
+        <button class="add-todo-button" id="add-todo-button" onclick="addTodoItem()">Add To-Do</button>
+    </div>
+
+
+    <script>
+        const TODO_ITEMS = ["Buy groceries", "Walk the dog", "Finish homework", "Call mom"];
+
+        const todoContainer = document.getElementById("todo-container");
+
+        for (let i = 0; i < TODO_ITEMS.length; i++) {
+            const currentItem = TODO_ITEMS[i];
+
+            todoContainer.innerHTML = todoContainer.innerHTML + `<div class='todo-item'>${currentItem}</div>`;
+        }
+
+        function loadToDoItems() {
+            todoContainer.innerHTML = "";
+            for (let i = 0; i < TODO_ITEMS.length; i++) {
+                const currentItem = TODO_ITEMS[i];
+
+                todoContainer.innerHTML = todoContainer.innerHTML + `<div class='todo-item'>${currentItem}</div>`;
+            }
+
+        }
+            loadToDoItems();
+
+
+        function addTodoItem() {
+            const todoInputElement = document.getElementById("new-todo-input");
+            TODO_ITEMS.push(todoInputElement.value);
+            loadToDoItems();
+            todoInputElement.value = "";
+        }
+    </script>
+</body>
+
+</html>
