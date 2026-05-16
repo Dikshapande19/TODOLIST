@@ -26,7 +26,7 @@
     }
 
     .todo-item:hover {
-       background-color: #ffffff;
+        background-color: #ffffff;
         cursor: pointer;
         box-shadow: 3px 5px 5px grey;
     }
@@ -82,7 +82,7 @@
     }
 
     .delete-button:hover {
-       transform: rotate(100deg);
+        transform: scale(1.2);
     }
 </style>
 
@@ -103,15 +103,15 @@
         const todoContainer = document.getElementById("todo-container");
 
         function loadToDoItems() {
-           const TODO_ITEMS = JSON.parse(localStorage.getItem("TODO_ITEMS") || []);
+            const TODO_ITEMS = JSON.parse(localStorage.getItem("TODO_ITEMS") || "[]");
             todoContainer.innerHTML = "";
 
-        for (let i = 0; i < TODO_ITEMS.length; i++) {
-            const currentItem = TODO_ITEMS[i];
+            for (let i = 0; i < TODO_ITEMS.length; i++) {
+                const currentItem = TODO_ITEMS[i];
 
-            todoContainer.innerHTML = todoContainer.innerHTML + `<div class='todo-item'>${currentItem} <img src="trash.png" alt="Delete" class="delete-button" "></div>`;
+                todoContainer.innerHTML = todoContainer.innerHTML + `<div class='todo-item'>${currentItem} <img src="trash.png" alt="Delete" class="delete-button" onclick="deleteToDoItem(${i})"></div>`;
+            }
         }
-    }
 
         loadToDoItems();
 
@@ -119,16 +119,31 @@
         function addTodoItem() {
             const todoInputElement = document.getElementById("new-todo-input");
 
-            const storedToDoItems = JSON.parse(localStorage.getItem("TODO_ITEMS") || []);
+            const storedToDoItems = getToDoItemsFromLS();
 
             storedToDoItems.push(todoInputElement.value);
-            localStorage.setItem("TODO_ITEMS", JSON.stringify(storedToDoItems));
+           setToDoItemsToLS(storedToDoItems);
 
             loadToDoItems();
             todoInputElement.value = "";
         }
 
-        function deleteToDoItem()
+        function deleteToDoItem(index) {
+            const storedToDoItems = getToDoItemsFromLS();
+
+            storedToDoItems.splice(index, 1);
+            setToDoItemsToLS(storedToDoItems);
+
+            loadToDoItems();
+        }
+
+        function getToDoItemsFromLS() {
+            return JSON.parse(localStorage.getItem("TODO_ITEMS") || "[]");
+        }
+
+        function setToDoItemsToLS(items) {
+            localStorage.setItem("TODO_ITEMS", JSON.stringify(items));
+        }
     </script>
 </body>
 
