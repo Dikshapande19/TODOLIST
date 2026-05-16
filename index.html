@@ -21,6 +21,8 @@
         border-radius: 15px;
         background-color: #ffffff;
         cursor: pointer;
+        display: flex;
+        justify-content: space-between;
     }
 
     .todo-item:hover {
@@ -73,6 +75,15 @@
     .new-todo-container input:focus {
         outline: none;
     }
+
+    .delete-button {
+        height: 20px;
+        cursor: pointer;
+    }
+
+    .delete-button:hover {
+       transform: rotate(100deg);
+    }
 </style>
 
 <body>
@@ -88,34 +99,36 @@
 
 
     <script>
-        const TODO_ITEMS = ["Buy groceries", "Walk the dog", "Finish homework", "Call mom"];
 
         const todoContainer = document.getElementById("todo-container");
+
+        function loadToDoItems() {
+           const TODO_ITEMS = JSON.parse(localStorage.getItem("TODO_ITEMS") || []);
+            todoContainer.innerHTML = "";
 
         for (let i = 0; i < TODO_ITEMS.length; i++) {
             const currentItem = TODO_ITEMS[i];
 
-            todoContainer.innerHTML = todoContainer.innerHTML + `<div class='todo-item'>${currentItem}</div>`;
+            todoContainer.innerHTML = todoContainer.innerHTML + `<div class='todo-item'>${currentItem} <img src="trash.png" alt="Delete" class="delete-button" "></div>`;
         }
+    }
 
-        function loadToDoItems() {
-            todoContainer.innerHTML = "";
-            for (let i = 0; i < TODO_ITEMS.length; i++) {
-                const currentItem = TODO_ITEMS[i];
-
-                todoContainer.innerHTML = todoContainer.innerHTML + `<div class='todo-item'>${currentItem}</div>`;
-            }
-
-        }
         loadToDoItems();
 
 
         function addTodoItem() {
             const todoInputElement = document.getElementById("new-todo-input");
-            TODO_ITEMS.push(todoInputElement.value);
+
+            const storedToDoItems = JSON.parse(localStorage.getItem("TODO_ITEMS") || []);
+
+            storedToDoItems.push(todoInputElement.value);
+            localStorage.setItem("TODO_ITEMS", JSON.stringify(storedToDoItems));
+
             loadToDoItems();
             todoInputElement.value = "";
         }
+
+        function deleteToDoItem()
     </script>
 </body>
 
